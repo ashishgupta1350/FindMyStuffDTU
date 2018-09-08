@@ -12,17 +12,22 @@
             <label for="form_lastname">Location(2-3 words) *</label>
             <input required id="form_lastname" type="text" name="details" class="form-control" placeholder="Please enter the location it was lost/found *" required="required" data-error="Location is required.">
         </div>
-        
-        <div class="form-group">
-            <label for="example-date-input" class="col-2 col-form-label">Date</label>
-            <input required  name="date"  type="date" value="2018-08-19" id="example-date-input">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="form-group">
+                    <label for="example-date-input" class="col-2 col-form-label">Date</label>
+                    <div class="col-10">
+                    <input required  name="date"  type="date" value="2018-08-19" id="example-date-input">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="form-group">
+                    <label for="example-time-input" class="col-2 col-form-label">Time</label>
+                    <input required class="form-control" name="time" type="time" value="13:45:00" id="example-time-input">
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label for="example-time-input" class="col-2 col-form-label">Time</label>
-            <input required class="form-control" name="time" type="time" value="13:45:00" id="example-time-input">
-        </div>
-
         <br>
         <div class="form-group">
             <label for="form_message">Specifications of the item, start with "Lost" or "Found"(30-40 words) *</label>
@@ -31,9 +36,11 @@
         </div>
         <br>
         <div class="form-group">
-            <label for="location">Location</label>
-            <input class="form-control" type= lat: Number,
-            lng: Number,"text" name="location" id="location" placeholder="Yosemite National Park, CA">
+            <label for="location">Location*</label>
+            <input class="form-control" type="text"
+             name="location" id="location" required placeholder="Wind Point, Delhi Technological University">
+            <div class="help-block with-errors"> Recommended: Visit <a href="https://www.google.com/maps/search/Delhi+Technological+University,+Shahbad+Daulatpur+Village,+Rohini,+Delhi,+Delhi/@28.7500499,77.1112508,16z/data=!3m1!4b1">Google Maps - DTU</a> and locate the place (eg-Wind-Point). Just copy the search result here. ( eg: Wind Point, Delhi Technological University, Shahbad Daulatpur Village, Rohini, Delhi) </div>
+
         </div>
         <br>
         <div class="form-group">
@@ -46,4 +53,6 @@
         </div>
         <button class="btn btn-success">Submit</button>
     </form>
+    <div class="help-block with-errors">Please fill in the location correctly to submit the form. Its easy and convenient for others. Inconvenience is regreted.</div>
+
 <% include partials/footer %>

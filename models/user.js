@@ -10,8 +10,6 @@ var UserSchema=new mongoose.Schema({
     firstName:String,
     lastName:String,
     email:String
-    
-
 
 });
 UserSchema.plugin(passportLocalMongoose);
