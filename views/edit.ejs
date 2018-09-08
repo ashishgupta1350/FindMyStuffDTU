@@ -52,7 +52,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="form_message">Specifications of the item, start with "Lost" or "Found"(30-40 words) *</label>
-                            <textarea required id="form_message" name="item[specifications]" class="form-control" value="<%=item.specifications%>" rows="4" required="required" data-error="Please, leave us a message."></textarea>
+                            <textarea required id="form_message" name="item[specifications]" class="form-control"  rows="4" required="required" data-error="Please, leave us a message."><%=item.specifications%></textarea>
                             <div class="help-block with-errors"></div>
                         </div>
                         <p>Please fill this again:</p>

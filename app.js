@@ -1,6 +1,6 @@
+require('dotenv').config();
 var express         =require("express"),
     mongoose        =require("mongoose"),
-    
     methodOverride  =require("method-override")
     passport        =require("passport"),
     LocalStrategy   =require("passport-local"),
@@ -44,6 +44,7 @@ app.use(function(req,res,next)
 {
     // req.locals.currentUser=req.user;
     res.locals.currentUser=req.user;
+    res.locals.ADMIN_SECRET_KEY=process.env.ADMIN_SECRET_KEY;
     next(); // this turns on the middle ware
 });
 
@@ -58,6 +59,7 @@ app.use(commentRoute);
 
 app.listen(3000,function()
 {
+    console.log(process.env.ADMIN_SECRET_KEY)
     console.log("The FindMyStuff server has started!");
 });
 

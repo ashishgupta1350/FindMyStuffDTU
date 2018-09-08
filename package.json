@@ -29,8 +29,10 @@
   },
   "homepage": "https://github.com/ashishgupta1350/FindMyStuff-DTU#readme",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "connect-flash": "^0.1.1",
+    "dotenv": "^6.0.0",
     "ejs": "^2.6.1",
     "everyauth": "^0.4.9",
     "express": "^4.16.3",

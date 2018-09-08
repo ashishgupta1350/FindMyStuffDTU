@@ -1,3 +1,4 @@
+require('dotenv').config()
 var express=require("express");
 var router=express.Router();
 LostItem    =require("../models/lost.js"),
@@ -18,14 +19,19 @@ router.get("/team",function(req,res)
 // REGISTER ROUTES
 router.get("/register",function(req,res)
 {
+    console.log(process.env);
+
     res.render("register");
 });
 
 router.post("/register",function(req,res)
 {   
     var newUser=new User({username:req.body.username});
-    console.log("********** -- password -- ***********")
-    console.log(req.body.password);
+    console.log(process.env);
+    if(req.body.adminKey==process.env.ADMIN_SECRET_PASSWORD)
+    {
+        newUser.isAdmin=true;
+    }
     User.register(newUser,req.body.password,function(err,user){
         if(err)
         {

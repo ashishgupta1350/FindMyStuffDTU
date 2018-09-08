@@ -180,10 +180,7 @@ router.put("/items/:id",middleware.checkItemOwnership,function(req,res)
         req.body.item.lat = data[0].latitude;
         req.body.item.lng = data[0].longitude;
         req.body.location = data[0].formattedAddress;
-        console.log("----------------------------------------------------------------------");
-        console.log(req.body.item);
-        console.log("----------------------------------------------------------------------");
-
+        
         if(req.body.item.isLost=="lost")
         {
             LostItem.findByIdAndUpdate(req.params.id, req.body.item, function(err, item){

@@ -30,7 +30,7 @@ middlewareObj.checkItemOwnership=function(req,res,next)
                         res.redirect("/items");
                     }
                     else{
-                        if(foundFoundItem && foundFoundItem.author.id.equals(req.user._id))
+                        if(foundFoundItem && (foundFoundItem.author.id.equals(req.user._id)||req.user.isAdmin))
                         {
                             next();
                         }
@@ -43,7 +43,7 @@ middlewareObj.checkItemOwnership=function(req,res,next)
             }
             else{
                 
-                if(foundLostItem.author.id.equals(req.user._id))
+                if(foundLostItem.author.id.equals(req.user._id) || req.user.isAdmin)
                 {
                      next();
                      
@@ -75,7 +75,7 @@ middlewareObj.checkCommentsOwnership=function(req,res,next)
            else{
             //   console.log(foundComment);
             //   console.log(req.user);
-               if(foundComment.author.id.equals(req.user._id))
+               if(foundComment.author.id.equals(req.user._id)||req.user.isAdmin)
                {
                    next();
                }else{

@@ -1,6 +1,9 @@
 <% include partials/header %>
     <div class="row">
         <div class="container">
+            <%if(currentUser && currentUser.isAdmin){%>
+                <h2>You are an Admin</h2>
+            <%}%>
             <div class="topPart">
                 <ul class="buttonList">
                     <a onclick="toggleLostTable();"> <li   class="thisClass  lostClass btn btn-default btn-lg btn-block col-xs-5 col-sm-5 col-md-5 col-lg-5">Lost Items</li></a>
