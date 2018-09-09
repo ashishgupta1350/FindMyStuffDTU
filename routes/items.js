@@ -20,7 +20,9 @@ router.get("/items",function(req,res)
     LostItem.find({},function(err,allLostItems){
         if(err)
         {
-            console.log(err);
+            // console.log(err);
+            req.flash("error","Following error encountered : " + err.message);
+            res.redirect("back");
             // res.send("some error");
         }
         else{ 
@@ -28,9 +30,8 @@ router.get("/items",function(req,res)
                 if(err)
                 {
                     console.log("Some error while finding the items in items.js")
-                    console.log(err);
-                    // res.send("some error 1");
-
+                    req.flash("error","Following error encountered : " + err.message);
+                    res.redirect("back");
                 }
                 else{
                     res.render("items",{lostItems:allLostItems,foundItems:allFoundItems}); 
@@ -61,7 +62,7 @@ router.post("/items",middleware.isLoggedIn,function(req,res)
 
            
             if (err || !data.length) {
-            //   req.flash('error', 'Invalid address');
+              req.flash('error', 'Invalid address');
               return res.redirect('back');
             }
             
@@ -79,8 +80,12 @@ router.post("/items",middleware.isLoggedIn,function(req,res)
                 if(err)
                 {
                     console.log(err);
+                    req.flash("error","Following error encountered : " + err.message);
+                    res.redirect("back");
                 }
                 else{
+                    req.flash("success","Success! Added your lost item!");
+                    
                     return res.redirect("/items");
                 }
             });
@@ -90,9 +95,12 @@ router.post("/items",middleware.isLoggedIn,function(req,res)
             {
                 if(err)
                 {
+                    req.flash("error","Following error encountered : " + err.message);
+
                     console.log(err);
                 }
                 else{
+                    req.flash("success","Success! Added item found by you!");
                     return res.redirect("/items");
                 }
             });
@@ -112,7 +120,7 @@ router.get("/items/:id",function(req,res)
         // ObjectId.fromString( req.params.id ); This needs to be done to remove that casting error
 
     // LostItem.findById(req.params.id, function(err, foundLostItem){
-    console.log(req.params.id)
+    // console.log(req.params.id)
     
     LostItem.findById(req.params.id).populate("comments").exec(function(err, foundLostItem){
         if(err){
@@ -125,7 +133,9 @@ router.get("/items/:id",function(req,res)
             FoundItem.findById(req.params.id).populate("comments").exec(function(err, foundFoundItem){
             
                 if(err || !foundFoundItem){
-                    console.log("No Such Item exists");
+                    // console.log("No Such Item exists");
+                    console.log(err);
+                    req.flash("error","No such item exists");
                     res.redirect("/items");
                 } else {
                     //render show template with that item
@@ -142,10 +152,11 @@ router.get("/items/:id",function(req,res)
 
 router.get("/items/:id/edit",function(req,res)
 {
-    console.log(req.params);
+    // console.log(req.params);
     LostItem.findById(req.params.id,function(err, foundLostItem){
         if(err){
             console.log(err);
+            req.flash("error","Following error encountered : " + err.message);
             res.redirect("/items");
         }
         else if(!foundLostItem)
@@ -155,6 +166,7 @@ router.get("/items/:id/edit",function(req,res)
             
                 if(err || !foundFoundItem){
                     console.log("No Such Item exists");
+                    req.flash("error","No such item exists");
                     res.redirect("/items");
                 } else {
                     //render show template with that item
@@ -174,7 +186,7 @@ router.put("/items/:id",middleware.checkItemOwnership,function(req,res)
     
     geocoder.geocode(req.body.location, function (err, data) {
         if (err || !data.length) {
-        //   req.flash('error', 'Invalid address');
+          req.flash('error', 'Invalid address, Please retype again or use maps!');
           return res.redirect('back');
         }
         req.body.item.lat = data[0].latitude;
@@ -185,21 +197,21 @@ router.put("/items/:id",middleware.checkItemOwnership,function(req,res)
         {
             LostItem.findByIdAndUpdate(req.params.id, req.body.item, function(err, item){
                 if(err||!item){
-                    // req.flash("error", err.message);
+                    req.flash("error","Following error encountered : " + err.message);
                     console.log(err);
                     res.redirect("back");
                 } else {
-                    // req.flash("success","Successfully Updated!");
+                    req.flash("success","Successfully Updated!");
                     res.redirect("/items/" + item._id);
                 }
             });
         } else {
             FoundItem.findByIdAndUpdate(req.params.id, req.body.item, function(err, item){
                 if(err||!item){
-                    // req.flash("error", err.message);
+                    req.flash("error","Following error encountered : " + err.message);  
                     res.redirect("back");
                 } else {
-                    // req.flash("success","Successfully Updated!");
+                    req.flash("success","Successfully Updated!");
                     res.redirect("/items/" + item._id);
                 }
             });
@@ -214,6 +226,7 @@ router.delete("/items/:id",middleware.checkItemOwnership,function(req,res)
             FoundItem.findByIdAndRemove(req.params.id,function(err){
                 if(err)
                 {
+                    req.flash("error","Following error encountered : " + err.message);
                     res.redirect("/items");
                 }
                 else{
@@ -223,14 +236,17 @@ router.delete("/items/:id",middleware.checkItemOwnership,function(req,res)
                         LostItem.findByIdAndRemove(req.params.id,function(err){
                             if(err)
                             {
+                                req.flash("error","Following error encountered : " + err.message);
                                 res.redirect("/items");
                             }
                             else{
+                                req.flash("success","Success! Deleted the item and sent your mail to the owner!");
                                 res.redirect("/items");
                             }
                         });
                     }
                     else{
+                        req.flash("success","Success! Deleted the item and sent your mail to the owner!");
                         res.redirect("/items");
                     }
                     // res.redirect("/items");

@@ -45,9 +45,9 @@
                             <% if (!currentUser) {%>
                                 <li><a href="/login"> <i class="fab fa-teamspeak"></i> Login</a></li>
                                 <li><a href="/register"> <i class="fas fa-question"></i> Register</a></li>
-                                <li><a href="/auth/google"> Sign In with <i class="fab fa-google"></i></a></li>
+                                <!-- <li><a href="/auth/google" id="disabledSelect" disabled> Sign In with <i class="fab fa-google"></i></a></li> -->
                             <% } else {%>
-                                <li> <a href="#"><strong>Signed in as: <%=currentUser.username%></strong></a></li>
+                                <li> <a href="/users/<%=currentUser._id%>"><strong>Signed in as: <%=currentUser.username%></strong></a></li>
                                 <li><a href="/logout"> <i class="fas fa-chart-area"></i> logout</a></li>
                             <%}%>
 
@@ -56,4 +56,22 @@
                     </div><!-- /.navbar-collapse -->
                 </div>
             </nav>
+
+            <div class="container" >
+                <%if(error && error.length > 0){%>
+                <div class="alert alert-danger" style="margin-top:10px ;text-align: center ;padding:10px" role="alert">
+                    <%=error%>
+                </div>
+                <%}else if(success && success.length > 0){%>
+                <div class="alert alert-success" style="margin-top:10px ;text-align: center ;padding:10px" role="alert">
+                    <%=success%>
+                </div>
+                <%}else if(info && info.length > 0){%>
+                <div class="alert alert-success" style="margin-top:10px ;text-align: center ;padding:10px" role="alert">
+                    <%=info%>
+                </div>
+                <%}%>  
+            </div>
+
+            
 

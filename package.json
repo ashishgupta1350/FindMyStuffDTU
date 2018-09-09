@@ -7,6 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
+  "events": {
+    "restart": "fuser -k 3000/tcp ; fuser -k 3000"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ashishgupta1350/FindMyStuff-DTU.git"
@@ -29,9 +32,11 @@
   },
   "homepage": "https://github.com/ashishgupta1350/FindMyStuff-DTU#readme",
   "dependencies": {
+    "async": "^2.6.1",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "connect-flash": "^0.1.1",
+    "crypto": "^1.0.1",
     "dotenv": "^6.0.0",
     "ejs": "^2.6.1",
     "everyauth": "^0.4.9",
@@ -42,6 +47,7 @@
     "mongoose": "^5.2.10",
     "mongoose-findorcreate": "^3.0.0",
     "node-geocoder": "^3.22.0",
+    "nodemailer": "^4.6.8",
     "passport": "^0.4.0",
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",

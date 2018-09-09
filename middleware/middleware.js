@@ -14,20 +14,21 @@ middlewareObj.checkItemOwnership=function(req,res,next)
         {
             if(err)
             {
-                // req.flash("error","Campground not found!");
-                console.log("Not found Lost item")
-                res.redirect("/items");
+                req.flash("error","Item not found!");
+                // console.log("Not found Lost item")
+                res.redirect("back");
             }
             else if(!foundLostItem){
                 FoundItem.findById(req.params.id,function(err,foundFoundItem)
                 {
                     if(err){
                         console.log("some error in found item in middleware");
+                        req.flash("error","Following error was found: "+err.message);
                         res.redirect("/items");
                     }
                     else if(!foundFoundItem){
-                        console.log("Invalid Item");
-                        res.redirect("/items");
+                        req.flash("error","Invalid Item");
+                        res.redirect("back");
                     }
                     else{
                         if(foundFoundItem && (foundFoundItem.author.id.equals(req.user._id)||req.user.isAdmin))
@@ -35,7 +36,9 @@ middlewareObj.checkItemOwnership=function(req,res,next)
                             next();
                         }
                         else{
-                            res.send("You are not authorised to complete this action!");
+                            req.flash("error","You are not authorised to complete this action!");
+                            res.redirect("back");
+
                         }
                     }
                 });
@@ -48,14 +51,15 @@ middlewareObj.checkItemOwnership=function(req,res,next)
                      next();
                      
                 }else{
-                    res.send("You are not authorised to complete this action!");
+                    req.flash("error","You are not authorised to complete this action!");
+                    res.redirect("back");
                 }
             }
         });
     }
     else{
         console.log("You need to be logged in to perform that action!")
-        res.redirect("/login");
+        res.redirect("back");
     }
 };
 middlewareObj.checkCommentsOwnership=function(req,res,next)
@@ -67,10 +71,15 @@ middlewareObj.checkCommentsOwnership=function(req,res,next)
            if(err||!foundComment)
            {
             //   console.log(err);
-            //   if(err){
-            //     req.flash("error",err.message);
-            // }
-              res.redirect("back");
+              if(err){
+                req.flash("error","Following error encountered : " + err.message);
+                res.redirect("back");
+               
+            }
+            else{
+                req.flash("error","Not found comment");
+                res.redirect("back");
+            }
            }
            else{
             //   console.log(foundComment);
@@ -80,7 +89,7 @@ middlewareObj.checkCommentsOwnership=function(req,res,next)
                    next();
                }else{
                 //   res.send("Not authorized to change/delete");
-                    // req.flash("error","You are not authorized.");
+                   req.flash("error","You are not authorized.");
                    res.redirect("back");
                }
            }
@@ -88,7 +97,7 @@ middlewareObj.checkCommentsOwnership=function(req,res,next)
     }
     else{
         // console.log("You need to be logged in first");
-        // req.flash("error","You need to be logged in to do that.");
+        req.flash("error","You need to be logged in to do that.");
         console.log("Please log in to do that!")
         res.redirect("/login");
     }
@@ -100,8 +109,8 @@ middlewareObj.isLoggedIn= function(req,res,next)
     {
         return next();
     }
-    // req.flash("error","You need to be logged in to do that."); // in flash, add this flash!
-    res.redirect("/login");
+    req.flash("error","You need to be logged in to do that!"); // in flash, add this flash!
+    res.redirect("back");
 }
 
 module.exports=middlewareObj;

@@ -14,10 +14,13 @@ var express         =require("express"),
     GoogleStrategy  =require('passport-google-oauth').OAuth2Strategy,
     findOrCreate    =require("mongoose-findorcreate"),
     moment          =require("moment"),
-    bodyParser      =require("body-parser")
+    bodyParser      =require("body-parser"),
+    flash           =require("connect-flash")
+
+    
 var app=express();
 app.use(methodOverride("_method"));
-
+app.use(flash());
 
 var itemsRoute=require("./routes/items"),
     indexRoute=require("./routes/index"),
@@ -26,7 +29,7 @@ var itemsRoute=require("./routes/items"),
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + "/public"));
 app.set("view engine","ejs");
-mongoose.connect("mongodb://localhost/findMyStuffLatestDB",{ useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/findDTU",{ useNewUrlParser: true });
 
 app.use(require("express-session")({
     secret:"Session for Find My Stuff DTU",
@@ -45,6 +48,9 @@ app.use(function(req,res,next)
     // req.locals.currentUser=req.user;
     res.locals.currentUser=req.user;
     res.locals.ADMIN_SECRET_KEY=process.env.ADMIN_SECRET_KEY;
+    res.locals.success= req.flash("success");
+    res.locals.error  =req.flash("error");
+    res.locals.info   =req.flash("info");
     next(); // this turns on the middle ware
 });
 
@@ -59,7 +65,6 @@ app.use(commentRoute);
 
 app.listen(3000,function()
 {
-    console.log(process.env.ADMIN_SECRET_KEY)
     console.log("The FindMyStuff server has started!");
 });
 
