@@ -63,14 +63,14 @@ app.use(itemsRoute);
 app.use(indexRoute);
 app.use(commentRoute);
 
-app.listen(3000,function()
+app.listen(process.env.PORT,process.env.IP)
 {
     // killall -9 node    Use this in Terminal if the port 3000 is 
     //                    occupied
 
 
     console.log("The FindMyStuff server has started!");
-});
+};
 
 
 
