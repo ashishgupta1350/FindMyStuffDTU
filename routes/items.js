@@ -20,35 +20,70 @@ var geocoder = NodeGeocoder(options);
 
 router.get("/items",function(req,res)
 {
-    LostItem.find({},function(err,allLostItems){
-        if(err)
-        {
-            // console.log(err);
-            req.flash("error","Following error encountered : " + err.message);
-            res.redirect("back");
-            // res.send("some error");
-        }
-        else{ 
-            FoundItem.find({},function(err,allFoundItems){
-                if(err)
-                {
-                    console.log("Some error while finding the items in items.js")
-                    req.flash("error","Following error encountered : " + err.message);
-                    res.redirect("back");
-                }
-                else{
-                    res.render("items",{lostItems:allLostItems,foundItems:allFoundItems}); 
-                }
-            
-            });
-        }
-    });
+    var noMatch = null;
+    // eval(require("locus"));
+    if(req.query.search)
+    {
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        
+        LostItem.find({item:regex},function(err,allLostItems){
+            if(err)
+            {
+                // console.log(err);
+                req.flash("error","Following error encountered : " + err.message);
+                res.redirect("back");
+                // res.send("some error");
+            }
+            else{ 
+                FoundItem.find({item:regex},function(err,allFoundItems){
+                    if(err)
+                    {
+                        console.log("Some error while finding the items in items.js")
+                        req.flash("error","Following error encountered : " + err.message);
+                        res.redirect("back");
+                    }
+                    else{
+                        if(allFoundItems.length<1 || allLostItems.length<1){
+                            res.render("items",{lostItems:allLostItems,foundItems:allFoundItems,noMatch:noMatch});
+                        } 
+                    }
+                
+                });
+            }
+        });
+    }
+    else{   
+        LostItem.find({},function(err,allLostItems){
+            if(err)
+            {
+                // console.log(err);
+                req.flash("error","Following error encountered : " + err.message);
+                res.redirect("back");
+                // res.send("some error");
+            }
+            else{ 
+                FoundItem.find({},function(err,allFoundItems){
+                    if(err)
+                    {
+                        console.log("Some error while finding the items in items.js")
+                        req.flash("error","Following error encountered : " + err.message);
+                        res.redirect("back");
+                    }
+                    else{
+                        res.render("items",{lostItems:allLostItems,foundItems:allFoundItems,noMatch:noMatch}); 
+                    }
+                
+                });
+            }
+        });
+    }
     
 });
 router.post("/items",middleware.isLoggedIn,function(req,res)
 {
     // console.log(req.body);
     // console.log(req.body.isLost);
+
     var item=req.body.item;
         var details=req.body.details;
         var specifications=req.body.specifications;
@@ -264,4 +299,10 @@ router.delete("/items/:id",middleware.isLoggedIn,function(req,res)
     }
     
 });
+// regular expression to do fuzzy search
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+
 module.exports = router;
