@@ -5,13 +5,16 @@ LostItem    =require("../models/lost.js"),
 FoundItem   =require("../models/found.js")
 var middleware = require("../middleware/middleware.js");
 var NodeGeocoder = require('node-geocoder');
- 
+var prompt = require('prompt');
+
 var options = {
   provider: 'google',
   httpAdapter: 'https',
-  apiKey: process.env.GEOCODER_API_KEY,
+  apiKey:'AIzaSyBH9Gm2_9yBfuHP4bZDwuWKtMrwke6R81c', // to update to env variables
   formatter: null
 };
+
+
  
 var geocoder = NodeGeocoder(options);
 
@@ -55,14 +58,16 @@ router.post("/items",middleware.isLoggedIn,function(req,res)
             id:req.user._id,
             username:req.user.username
         };
-        var lat,lng,location;
-       
+        var lat;
+        var lng;
+        var location;
+
         location=req.body.location;
         geocoder.geocode(req.body.location, function (err, data) {
 
            
             if (err || !data.length) {
-              req.flash('error', 'Invalid address');
+              req.flash('error', err.message);
               return res.redirect('back');
             }
             
@@ -70,7 +75,7 @@ router.post("/items",middleware.isLoggedIn,function(req,res)
             lng = data[0].longitude;
             location = data[0].formattedAddress;
             var itemObject={item:item,details:details,specifications:specifications, date:date ,time:time,author:author,location:location,lat:lat,lng:lng};
-
+            
         
 
         if(req.body.isLost=="lost"){
@@ -181,7 +186,7 @@ router.get("/items/:id/edit",function(req,res)
     });
 });
 
-router.put("/items/:id",middleware.checkItemOwnership,function(req,res)
+router.put("/items/:id",middleware.isLoggedIn,function(req,res)
 {
     
     geocoder.geocode(req.body.location, function (err, data) {
@@ -219,10 +224,13 @@ router.put("/items/:id",middleware.checkItemOwnership,function(req,res)
       });
 });
 
-router.delete("/items/:id",middleware.checkItemOwnership,function(req,res)
+router.delete("/items/:id",middleware.isLoggedIn,function(req,res)
 {
    var found = FoundItem.findById(req.params.id);
    if(found){
+            
+    
+
             FoundItem.findByIdAndRemove(req.params.id,function(err){
                 if(err)
                 {

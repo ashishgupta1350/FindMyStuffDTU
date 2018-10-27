@@ -44,7 +44,7 @@
                     </tr>
                 </thead>
                     <tbody>
-                        <% lostItems.forEach(function(item){ %>
+                        <% lostItems.slice().reverse().forEach(function(item){ %>
                             <tr>
                                 <td><%=item.item%></td>
                                 <td> Last seen at <%=item.details%> about <%=moment(item.date+"T"+item.time).fromNow()%></td>
@@ -79,7 +79,7 @@
                     </tr>
                 </thead>
                     <tbody>
-                        <% foundItems.forEach(function(item){ %>
+                        <% foundItems.slice().reverse().forEach(function(item){ %>
                         
                             <tr>
                                 <td><%=item.item%></td>

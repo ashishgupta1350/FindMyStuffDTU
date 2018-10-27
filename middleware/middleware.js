@@ -59,6 +59,8 @@ middlewareObj.checkItemOwnership=function(req,res,next)
     }
     else{
         console.log("You need to be logged in to perform that action!")
+        req.flash("error","You need to be logged in to do that action!")
+        // Alter, we can show a login form here
         res.redirect("back");
     }
 };

@@ -65,7 +65,13 @@ app.use(commentRoute);
 
 app.listen(3000,function()
 {
+    // killall -9 node    Use this in Terminal if the port 3000 is 
+    //                    occupied
+
+
     console.log("The FindMyStuff server has started!");
 });
+
+
 
 
