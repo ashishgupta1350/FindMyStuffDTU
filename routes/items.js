@@ -1,3 +1,4 @@
+require('dotenv').config()
 var express=require("express");
 
 var router=express.Router();
@@ -7,14 +8,37 @@ var middleware = require("../middleware/middleware.js");
 var NodeGeocoder = require('node-geocoder');
 var prompt = require('prompt');
 
+// Image upload part of code
+var multer = require('multer');
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+
+var imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+
+var upload = multer({ storage: storage, fileFilter: imageFilter})
+
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'ashishgupta', 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
 var options = {
   provider: 'google',
   httpAdapter: 'https',
   apiKey:'AIzaSyBH9Gm2_9yBfuHP4bZDwuWKtMrwke6R81c', // to update to env variables
   formatter: null
 };
-
-
  
 var geocoder = NodeGeocoder(options);
 
@@ -43,6 +67,7 @@ router.get("/items",function(req,res)
                         res.redirect("back");
                     }
                     else{
+                        
                         if(allFoundItems.length<1 || allLostItems.length<1){
                             res.render("items",{lostItems:allLostItems,foundItems:allFoundItems,noMatch:noMatch});
                         } 
@@ -79,7 +104,7 @@ router.get("/items",function(req,res)
     }
     
 });
-router.post("/items",middleware.isLoggedIn,function(req,res)
+router.post("/items",middleware.isLoggedIn,upload.single('image'),function(req,res)
 {
     // console.log(req.body);
     // console.log(req.body.isLost);
@@ -109,8 +134,9 @@ router.post("/items",middleware.isLoggedIn,function(req,res)
             lat = data[0].latitude;
             lng = data[0].longitude;
             location = data[0].formattedAddress;
-            var itemObject={item:item,details:details,specifications:specifications, date:date ,time:time,author:author,location:location,lat:lat,lng:lng};
-            
+            cloudinary.uploader.upload(req.file.path, function(result) {
+                var itemObject={item:item,details:details,specifications:specifications, date:date ,time:time,author:author,location:location,lat:lat,lng:lng,image:result.secure_url};
+            });
         
 
         if(req.body.isLost=="lost"){
