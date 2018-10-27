@@ -29,7 +29,9 @@ var itemsRoute=require("./routes/items"),
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + "/public"));
 app.set("view engine","ejs");
-mongoose.connect("mongodb://localhost/findDTU",{ useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost/findDTU",{ useNewUrlParser: true });
+ mongoose.connect("mongodb://ashish1:ashish1@ds143593.mlab.com:43593/fmsdtu",{ useNewUrlParser: true });
+
 
 app.use(require("express-session")({
     secret:"Session for Find My Stuff DTU",
