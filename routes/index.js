@@ -138,7 +138,7 @@ router.post("/dtusecurity",function(req,res)
             //     itemObject=itemObject_cloudinary;
             // });
        
-
+            // eval(require("locus"));
         FoundItem.create(itemObject,function(err,newlyCreated)
         {
             if(err)
@@ -432,4 +432,9 @@ function checkUserOwnership(req,res,next)
     }
 
 }
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+
 module.exports = router;

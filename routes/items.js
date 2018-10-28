@@ -225,7 +225,7 @@ router.get("/items/:id/edit",function(req,res)
         if(err){
             console.log(err);
             req.flash("error","Following error encountered : " + err.message);
-            res.redirect("/items");
+            res.redirect("back");
         }
         else if(!foundLostItem)
         {
@@ -235,7 +235,7 @@ router.get("/items/:id/edit",function(req,res)
                 if(err || !foundFoundItem){
                     console.log("No Such Item exists");
                     req.flash("error","No such item exists");
-                    res.redirect("/items");
+                    res.redirect("back");
                 } else {
                     //render show template with that item
                     res.render("edit", {item: foundFoundItem});
@@ -298,7 +298,7 @@ router.delete("/items/:id",middleware.checkItemOwnership,function(req,res)
                 if(err)
                 {
                     req.flash("error","Following error encountered : " + err.message);
-                    res.redirect("/items");
+                    res.redirect("back");
                 }
                 else{
                     
@@ -308,17 +308,17 @@ router.delete("/items/:id",middleware.checkItemOwnership,function(req,res)
                             if(err)
                             {
                                 req.flash("error","Following error encountered : " + err.message);
-                                res.redirect("/items");
+                                res.redirect("back");
                             }
                             else{
-                                req.flash("success","Success! Deleted the item and sent your mail to the owner!");
-                                res.redirect("/items");
+                                req.flash("success","Success! Deleted the item!");
+                                res.redirect("back");
                             }
                         });
                     }
                     else{
-                        req.flash("success","Success! Deleted the item and sent your mail to the owner!");
-                        res.redirect("/items");
+                        req.flash("success","Success! Deleted the item!");
+                        res.redirect("back");
                     }
                     // res.redirect("/items");
                     
