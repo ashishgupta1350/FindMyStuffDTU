@@ -22,8 +22,11 @@
         }
     </script>
   
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH9Gm2_9yBfuHP4bZDwuWKtMrwke6R81c&callback=initMap">
-    
+    <%
+        src="https://maps.googleapis.com/maps/api/js?key=".concat(process.env.GEOCODER_API_KEY_MAIN).concat('&callback=initMap');
+        console.log(src);
+    %>
+    <script async defer src=<%="https://maps.googleapis.com/maps/api/js?key=".concat(process.env.GEOCODER_API_KEY_MAIN).concat('&callback=initMap')%>
     </script>
  <% include partials/footer %>
+

@@ -36,7 +36,7 @@ cloudinary.config({
 var options = {
   provider: 'google',
   httpAdapter: 'https',
-  apiKey:'AIzaSyBH9Gm2_9yBfuHP4bZDwuWKtMrwke6R81c', // to update to env variables
+  apiKey:process.env.GEOCODER_API_KEY_MAIN, // to update to env variables
   formatter: null
 };
  
@@ -134,10 +134,12 @@ router.post("/items",middleware.isLoggedIn,upload.single('image'),function(req,r
             lat = data[0].latitude;
             lng = data[0].longitude;
             location = data[0].formattedAddress;
-            cloudinary.uploader.upload(req.file.path, function(result) {
-                var itemObject={item:item,details:details,specifications:specifications, date:date ,time:time,author:author,location:location,lat:lat,lng:lng,image:result.secure_url};
-            });
-        
+            var itemObject={item:item,details:details,specifications:specifications, date:date ,time:time,author:author,location:location,lat:lat,lng:lng};
+            // cloudinary.uploader.upload(req.file.path, function(result) {
+            //     var itemObject_cloudinary={item:item,details:details,specifications:specifications, date:date ,time:time,author:author,location:location,lat:lat,lng:lng};
+            //     itemObject=itemObject_cloudinary;
+            // });
+        // eval(require("locus"));
 
         if(req.body.isLost=="lost"){
         
@@ -223,7 +225,7 @@ router.get("/items/:id/edit",function(req,res)
         if(err){
             console.log(err);
             req.flash("error","Following error encountered : " + err.message);
-            res.redirect("/items");
+            res.redirect("back");
         }
         else if(!foundLostItem)
         {
@@ -233,7 +235,7 @@ router.get("/items/:id/edit",function(req,res)
                 if(err || !foundFoundItem){
                     console.log("No Such Item exists");
                     req.flash("error","No such item exists");
-                    res.redirect("/items");
+                    res.redirect("back");
                 } else {
                     //render show template with that item
                     res.render("edit", {item: foundFoundItem});
@@ -285,7 +287,7 @@ router.put("/items/:id",middleware.isLoggedIn,function(req,res)
       });
 });
 
-router.delete("/items/:id",middleware.isLoggedIn,function(req,res)
+router.delete("/items/:id",middleware.checkItemOwnership,function(req,res)
 {
    var found = FoundItem.findById(req.params.id);
    if(found){
@@ -296,7 +298,7 @@ router.delete("/items/:id",middleware.isLoggedIn,function(req,res)
                 if(err)
                 {
                     req.flash("error","Following error encountered : " + err.message);
-                    res.redirect("/items");
+                    res.redirect("back");
                 }
                 else{
                     
@@ -306,17 +308,17 @@ router.delete("/items/:id",middleware.isLoggedIn,function(req,res)
                             if(err)
                             {
                                 req.flash("error","Following error encountered : " + err.message);
-                                res.redirect("/items");
+                                res.redirect("back");
                             }
                             else{
-                                req.flash("success","Success! Deleted the item and sent your mail to the owner!");
-                                res.redirect("/items");
+                                req.flash("success","Success! Deleted the item!");
+                                res.redirect("back");
                             }
                         });
                     }
                     else{
-                        req.flash("success","Success! Deleted the item and sent your mail to the owner!");
-                        res.redirect("/items");
+                        req.flash("success","Success! Deleted the item!");
+                        res.redirect("back");
                     }
                     // res.redirect("/items");
                     

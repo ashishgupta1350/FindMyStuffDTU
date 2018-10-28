@@ -1,15 +1,15 @@
-<% include partials/header %>
+<% include ../partials/header %>
 
 <div class="container centertopage">
         
         
-    <form action="/items" method="POST"  enctype="multipart/form-data">
+    <form action="/dtusecurity" method="POST" >
         <div class="form-group">
             <label for="item_name">Item name *</label>
             <input required id="item_name" type="text" name="item" class="form-control" placeholder="Please enter the item name (Lost/Found) *" required="required" data-error="Item name is required.">
         </div>
         <div class="form-group">
-            <label for="form_lastname">Location(2-3 words) *</label>
+            <label for="form_lastname">Location Found(2-3 words for students) *</label>
             <input required id="form_lastname" type="text" name="details" class="form-control" placeholder="Please enter the location it was lost/found *" required="required" data-error="Location is required.">
         </div>
         <div class="row">
@@ -30,35 +30,32 @@
         </div>
         <br>
         <div class="form-group">
-            <label for="form_message">Specifications of the item, start with "Lost" or "Found"(30-40 words) *</label>
-            <textarea required id="form_message" name="specifications" class="form-control" placeholder="Specifications of the lost item(Color, Time, Date, Reward etc.) *" rows="4" required="required" data-error="Please, leave us a message."></textarea>
+            <label for="form_message">Specifications (30-40 words) *</label>
+            <textarea required id="form_message" name="specifications" class="form-control" placeholder="Specifications of the lost item(Color, Time, Date etc.) *" rows="4" required="required" data-error="Please, leave us a message."></textarea>
             <div class="help-block with-errors"></div>
         </div>
         <br>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="image">Image</label>
             <input type="file" id="image" name="image" accept="image/*" >
-        </div>
+        </div> -->
 
         <div class="form-group">
             <label for="location">Location*</label>
             <input class="form-control" type="text"
-             name="location" id="location" required placeholder="Wind Point, Delhi Technological University">
-            <div class="help-block with-errors"> Recommended: Visit <a href="https://www.google.com/maps/search/Delhi+Technological+University,+Shahbad+Daulatpur+Village,+Rohini,+Delhi,+Delhi/@28.7500499,77.1112508,16z/data=!3m1!4b1">Google Maps - DTU</a> and locate the place (eg-Wind-Point). Just copy the search result here. ( eg: Wind Point, Delhi Technological University, Shahbad Daulatpur Village, Rohini, Delhi) </div>
+             name="location" id="location" value="DTU Entrance Gate, B4 Road, Sector 17, Rohini, Delhi" placeholder="DTU Security">
+            
 
         </div>
         <br>
-        <div class="form-group">
-            <label for="form_isLost">The item is lost*</label>
-            <input type="radio" id="form_isLost" name="isLost" value="lost" required />
-        </div>
+        
         <div class="form-group">
             <label for="form_isFound">Item is found*</label>
-            <input type="radio" id="form_isFound" name="isLost" value="found" />
+            <input type="radio" id="form_isFound" name="isLost" checked="checked"  required value="found" />
         </div>
         <button class="btn btn-success">Submit</button>
     </form>
-    <div class="help-block with-errors">Please fill in the location correctly to submit the form. Its easy and convenient for others. Inconvenience is regreted.</div>
+   
 
-<% include partials/footer %>
+<% include ../partials/footer %>

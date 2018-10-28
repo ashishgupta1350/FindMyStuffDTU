@@ -1,0 +1,107 @@
+<% include ../partials/header %>
+    <div class="row">
+        <div class="container">
+            <%if(currentUser && currentUser.isAdmin){%>
+                
+            <div class="topPart text-center" style="margin-left:40%;">
+                    <ul class="buttonList">
+                         <!-- <li   class="thisClass  lostClass btn btn-default btn-lg btn-block col-xs-5 col-sm-5 col-md-5 col-lg-5"></li> -->
+                        <a href="/dtusecurity/new"> <li   class=" thisClass plus-button btn btn-default btn-lg col-xs-2 col-sm-2 col-md-2 col-lg-2"><i class="fas fa-plus-circle"></i></li></a>
+                         <!-- <li class="thisClass foundClass btn btn-default btn-lg btn-block col-xs-5 col-sm-5 col-md-5 col-lg-5"></li> -->
+                    </ul>
+                   
+                </div>
+            <%}%>
+            <div class="searchbar">
+                <form class="navbar-form" role="search" action="/dtusecurity" method="GET" class="form-inline">
+                    <div class="input-group add-on">
+                        <input type="text" name="search" placeholder="Item Search" class="form-control">
+                        <div class="input-group-btn">
+                                <input type="submit" value="search" class="btn btn-default">
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+
+        <div>
+            <table class="table table-hover table-striped table-bordered" style="text-align: center">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Details</th>
+                        <th>Specifications</th>
+                        <th>Action</th>
+                        <th>Image</th>
+                        <th>Further</th>
+                    </tr>
+                </thead>
+                    <tbody>
+                        <% foundItems.slice().reverse().forEach(function(item){
+                            
+                            if(item.isFoundByDTUSecurity==true){
+                            %>
+                        
+                            <tr>
+                                <td><%=item.item%></td>
+                                <td><%=item.details%></td>
+                                <td><%=item.specifications%></td>
+                                <!-- <td><button></button></td> -->
+                                <td class="dynamicWidth">
+                                <form action="/items/<%= item._id %>?_method=DELETE" id="delete" method="POST">
+                                    <button>It's Mine</button>
+                                    </form>
+                                </td>
+                                <td class="dynamicWidth"><a target="_blank" href="http://www.gstatic.com/webp/gallery/1.jpg" id="proceed"><i class="fas fa-camera"></i></a></td>
+
+                                <td class="dynamicWidth"><form class="itemDetailsButton" action="/items/<%=item._id%>"  method="GET">
+                                    <button>Show Details</button>
+                                </td>
+                                </form>
+                                </tr>
+                        <% 
+                            }}); 
+                        %>
+
+                        
+                    </tbody>
+            </table>
+        </div>
+        </div>
+        </div>
+     <!-- Copyright -->
+     <script type="text/javascript">
+        document.querySelector(".table-item-found").style.display = "none"
+        function toggleLostTable () {
+            // document.querySelectorAll(".table-item-lost")[0].style.display ="table";
+            $(".table-item-found").fadeOut(200,function()
+            {
+                $(".table-item-lost").fadeIn(100);
+            });
+            // $(".lostclass").addClass("active");
+            // $(".foundClass").removeClass("active");
+            
+            // document.querySelectorAll(".table-item-found")[0].style.display ="none";              
+        }
+        function toggleFoundTable () {
+            $(".table-item-lost").fadeOut(200,function()
+            {
+                $(".table-item-found").fadeIn(100);
+            });    
+            
+
+        }
+    </script>
+        
+    <footer class="page-footer font-small dark footer">
+      <div class="footer-copyright text-center py-3">© Created By:
+        <a href="https://github.com/ashishgupta1350"> Ashish Gupta</a>
+        <p> Contact: innovatedtu@gmail.com</p>
+      </div>
+    </footer>
+      <!-- Copyright -->
+
+ 
+    <% include ../partials/footer %>
+
+
