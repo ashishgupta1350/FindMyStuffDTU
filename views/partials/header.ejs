@@ -41,17 +41,17 @@
                             <!-- <li><a href="team"> <i class="fab fa-teamspeak"></i> Team</a></li>
                             <li><a href="about"> <i class="fas fa-question"></i> About</a></li>
                             <li><a href="stats"> <i class="fas fa-chart-area"></i> Stats</a></li> -->
-                            <li><a href="/dtusecurity"> <i class="fas fa-chart-area"></i> Items With DTU Security</a></li>
+                            <li><a href="/dtusecurity"> <i class="fas fa-university"></i> Items With DTU Security</a></li>
                             
                             <% if (!currentUser) {%>
-                                <li><a href="/login"> <i class="fab fa-teamspeak"></i> Login</a></li>
-                                <li><a href="/register"> <i class="fas fa-question"></i> Register</a></li>
+                                <li><a href="/login"> <i class="fas fa-sign-in-alt"></i> Login</a></li>
+                                <li><a href="/register"> <i class="far fa-registered"></i>Register</a></li>
                                 <!-- <li><a href="/auth/google" id="disabledSelect" disabled> Sign In with <i class="fab fa-google"></i></a></li> -->
                             <% } else {%>
                                 <li> <a href="/users/<%=currentUser._id%>"><strong>Signed in as: <%=currentUser.username%></strong></a></li>
-                                <li><a href="/logout"> <i class="fas fa-chart-area"></i> logout</a></li>
+                                <li><a href="/logout"> <i class="fas fa-sign-out-alt"></i> logout</a></li>
                             <%}%>
-                            <li><a href="/about"> <i class="fas fa-chart-area"></i> About</a></li>
+                            <li><a href="/about"> <i class="fas fa-cogs"></i> About</a></li>
 
 
                             

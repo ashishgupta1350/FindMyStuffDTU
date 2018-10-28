@@ -86,17 +86,34 @@ router.get("/dtusecurity",function(req,res)
 {
     //res.send("Work under progress. Want to contribute? Send a request @ ashishgupta1350@gmail.com");
     // res.render("dtuSecurity/dtusecurity",{lostItems:lostItems});
-    FoundItem.find({},function(err,allFoundItems){
-        if(err)
-        {
-            console.log("Some error while finding the items in items.js")
-            req.flash("error","Following error encountered : " + err.message);
-            res.redirect("back");
-        }
-        else{
-                res.render("dtuSecurity/dtusecurity",{foundItems:allFoundItems});
-            } 
-        });
+    if(req.query.search)
+    {
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        FoundItem.find({item:regex},function(err,allFoundItems){
+            if(err)
+            {
+                console.log("Some error while finding the items in items.js")
+                req.flash("error","Following error encountered : " + err.message);
+                res.redirect("back");
+            }
+            else{
+                    res.render("dtuSecurity/dtusecurity",{foundItems:allFoundItems});
+                } 
+            });
+    }
+    else{
+        FoundItem.find({},function(err,allFoundItems){
+            if(err)
+            {
+                console.log("Some error while finding the items in items.js")
+                req.flash("error","Following error encountered : " + err.message);
+                res.redirect("back");
+            }
+            else{
+                    res.render("dtuSecurity/dtusecurity",{foundItems:allFoundItems});
+                } 
+            });
+    }
 });
 
 router.get("/dtusecurity/new",function(req,res)
