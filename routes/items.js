@@ -139,7 +139,7 @@ router.post("/items",middleware.isLoggedIn,upload.single('image'),function(req,r
             //     var itemObject_cloudinary={item:item,details:details,specifications:specifications, date:date ,time:time,author:author,location:location,lat:lat,lng:lng};
             //     itemObject=itemObject_cloudinary;
             // });
-        eval(require("locus"));
+        // eval(require("locus"));
 
         if(req.body.isLost=="lost"){
         

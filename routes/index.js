@@ -9,6 +9,18 @@ var router=express.Router(),
     nodemailer      =require("nodemailer"),
     crypto          =require("crypto")
 
+
+var NodeGeocoder = require('node-geocoder');
+
+var options = {
+    provider: 'google',
+    httpAdapter: 'https',
+    apiKey:process.env.GEOCODER_API_KEY_MAIN, // to update to env variables
+    formatter: null
+    };
+    
+    var geocoder = NodeGeocoder(options);
+      
 router.get("/",function(req,res)
 {
     res.render("landing",{GEOCODER_API_KEY_MAIN:process.env.GEOCODER_API__MAIN}); // landing.ejs
@@ -72,7 +84,76 @@ router.get("/about",function(req,res)
 // DTU security page routes
 router.get("/dtusecurity",function(req,res)
 {
-    res.send("Work under progress. Want to contribute? Send a request @ ashishgupta1350@gmail.com")
+    //res.send("Work under progress. Want to contribute? Send a request @ ashishgupta1350@gmail.com");
+    // res.render("dtuSecurity/dtusecurity",{lostItems:lostItems});
+    FoundItem.find({},function(err,allFoundItems){
+        if(err)
+        {
+            console.log("Some error while finding the items in items.js")
+            req.flash("error","Following error encountered : " + err.message);
+            res.redirect("back");
+        }
+        else{
+                res.render("dtuSecurity/dtusecurity",{foundItems:allFoundItems});
+            } 
+        });
+});
+
+router.get("/dtusecurity/new",function(req,res)
+{
+    res.render("dtuSecurity/new");
+    
+});
+
+router.post("/dtusecurity",function(req,res)
+{
+    var item=req.body.item;
+        var details=req.body.details;
+        var specifications=req.body.specifications;
+        var date=req.body.date;
+        var time=req.body.time;
+        var author={
+            id:req.user._id,
+            username:req.user.username
+        };
+        var lat;
+        var lng;
+        var location;
+
+        location=req.body.location;
+        geocoder.geocode(req.body.location, function (err, data) {
+            // eval(require("locus"));
+           
+            if (err || !data.length) {
+              req.flash('error', err.message);
+              return res.redirect('back');
+            }
+            
+            lat = data[0].latitude;
+            lng = data[0].longitude;
+            location = data[0].formattedAddress;
+            var itemObject={item:item,details:details,specifications:specifications, date:date ,time:time,author:author,location:location,lat:lat,lng:lng,isFoundByDTUSecurity:true};
+            // cloudinary.uploader.upload(req.file.path, function(result) {
+            //     var itemObject_cloudinary={item:item,details:details,specifications:specifications, date:date ,time:time,author:author,location:location,lat:lat,lng:lng};
+            //     itemObject=itemObject_cloudinary;
+            // });
+       
+
+        FoundItem.create(itemObject,function(err,newlyCreated)
+        {
+            if(err)
+            {
+                req.flash("error","Following error encountered : " + err.message);
+
+                console.log(err);
+            }
+            else{
+                req.flash("success","Success! Added item!");
+                return res.redirect("/dtusecurity");
+            }
+        });
+        
+    });
 });
 
 // login routes

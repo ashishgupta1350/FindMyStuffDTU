@@ -21,7 +21,11 @@ var lostItemsSchema=new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref:"Comment"
         }
-    ]
+    ],
+    isFoundByDTUSecurity:{
+        default:false,
+        type: Boolean
+    }
     
 }); 
 var LostItem= mongoose.model("LostItem",lostItemsSchema);

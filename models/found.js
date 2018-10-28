@@ -21,7 +21,11 @@ var foundItemsSchema=new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref:"Comment"
         }
-    ]
+    ],
+    isFoundByDTUSecurity:{
+        default:false,
+        type: Boolean
+    }
 }); 
 var FoundItem= mongoose.model("FoundItem",foundItemsSchema);
 

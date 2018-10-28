@@ -1,0 +1,61 @@
+<% include ../partials/header %>
+
+<div class="container centertopage">
+        
+        
+    <form action="/dtusecurity" method="POST" >
+        <div class="form-group">
+            <label for="item_name">Item name *</label>
+            <input required id="item_name" type="text" name="item" class="form-control" placeholder="Please enter the item name (Lost/Found) *" required="required" data-error="Item name is required.">
+        </div>
+        <div class="form-group">
+            <label for="form_lastname">Location Found(2-3 words for students) *</label>
+            <input required id="form_lastname" type="text" name="details" class="form-control" placeholder="Please enter the location it was lost/found *" required="required" data-error="Location is required.">
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <div class="form-group">
+                    <label for="example-date-input" class="col-2 col-form-label">Date</label>
+                    <div class="col-10">
+                    <input required  name="date"  type="date" value="2018-08-19" id="example-date-input">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="form-group">
+                    <label for="example-time-input" class="col-2 col-form-label">Time</label>
+                    <input required class="form-control" name="time" type="time" value="13:45:00" id="example-time-input">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="form_message">Specifications (30-40 words) *</label>
+            <textarea required id="form_message" name="specifications" class="form-control" placeholder="Specifications of the lost item(Color, Time, Date etc.) *" rows="4" required="required" data-error="Please, leave us a message."></textarea>
+            <div class="help-block with-errors"></div>
+        </div>
+        <br>
+
+        <!-- <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" id="image" name="image" accept="image/*" >
+        </div> -->
+
+        <div class="form-group">
+            <label for="location">Location*</label>
+            <input class="form-control" type="text"
+             name="location" id="location" value="DTU Entrance Gate, B4 Road, Sector 17, Rohini, Delhi" placeholder="DTU Security">
+            
+
+        </div>
+        <br>
+        
+        <div class="form-group">
+            <label for="form_isFound">Item is found*</label>
+            <input type="radio" id="form_isFound" name="isLost" checked="checked"  required value="found" />
+        </div>
+        <button class="btn btn-success">Submit</button>
+    </form>
+   
+
+<% include ../partials/footer %>
