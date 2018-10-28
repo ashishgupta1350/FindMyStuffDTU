@@ -23,7 +23,32 @@ var options = {
       
 router.get("/",function(req,res)
 {
-    res.render("landing",{GEOCODER_API_KEY_MAIN:process.env.GEOCODER_API__MAIN}); // landing.ejs
+    
+    LostItem.find({},function(err,allLostItems){
+        if(err)
+        {
+            // console.log(err);
+            req.flash("error","Following error encountered : " + err.message);
+            res.redirect("back");
+            // res.send("some error");
+        }
+        else{ 
+            FoundItem.find({},function(err,allFoundItems){
+                if(err)
+                {
+                    console.log("Some error while finding the items in items.js")
+                    req.flash("error","Following error encountered : " + err.message);
+                    res.redirect("back");
+                }
+                else{
+
+                    // eval(require("locus"));
+                    res.render("landing",{lostItems:JSON.stringify( allLostItems),foundItems:JSON.stringify(allFoundItems),GEOCODER_API_KEY_MAIN:process.env.GEOCODER_API__MAIN}); 
+                }
+            
+            });
+        }
+    });
 });
 
 router.get("/team",function(req,res)
