@@ -22,6 +22,7 @@ var lostItemsSchema=new mongoose.Schema({
             ref:"Comment"
         }
     ]
+    
 }); 
 var LostItem= mongoose.model("LostItem",lostItemsSchema);
 

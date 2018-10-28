@@ -41,6 +41,7 @@
                             <!-- <li><a href="team"> <i class="fab fa-teamspeak"></i> Team</a></li>
                             <li><a href="about"> <i class="fas fa-question"></i> About</a></li>
                             <li><a href="stats"> <i class="fas fa-chart-area"></i> Stats</a></li> -->
+                            <li><a href="/dtusecurity"> <i class="fas fa-chart-area"></i> Items With DTU Security</a></li>
                             
                             <% if (!currentUser) {%>
                                 <li><a href="/login"> <i class="fab fa-teamspeak"></i> Login</a></li>
@@ -50,6 +51,8 @@
                                 <li> <a href="/users/<%=currentUser._id%>"><strong>Signed in as: <%=currentUser.username%></strong></a></li>
                                 <li><a href="/logout"> <i class="fas fa-chart-area"></i> logout</a></li>
                             <%}%>
+                            <li><a href="/about"> <i class="fas fa-chart-area"></i> About</a></li>
+
 
                             
                         </ul>

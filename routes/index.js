@@ -11,7 +11,7 @@ var router=express.Router(),
 
 router.get("/",function(req,res)
 {
-    res.render("landing"); // landing.ejs
+    res.render("landing",{GEOCODER_API_KEY_MAIN:process.env.GEOCODER_API__MAIN}); // landing.ejs
 });
 
 router.get("/team",function(req,res)
@@ -60,7 +60,21 @@ router.post("/register",function(req,res)
             });
         }
     });
+
 });
+
+// About page routes
+router.get("/about",function(req,res)
+{
+    res.render("users/about");
+});
+
+// DTU security page routes
+router.get("/dtusecurity",function(req,res)
+{
+    res.send("Work under progress. Want to contribute? Send a request @ ashishgupta1350@gmail.com")
+});
+
 // login routes
 router.get("/login",function(req,res)
 {
