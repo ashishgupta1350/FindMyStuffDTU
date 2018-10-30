@@ -23,7 +23,32 @@ var options = {
       
 router.get("/",function(req,res)
 {
-    res.render("landing",{GEOCODER_API_KEY_MAIN:process.env.GEOCODER_API__MAIN}); // landing.ejs
+    
+    LostItem.find({},function(err,allLostItems){
+        if(err)
+        {
+            // console.log(err);
+            req.flash("error","Following error encountered : " + err.message);
+            res.redirect("back");
+            // res.send("some error");
+        }
+        else{ 
+            FoundItem.find({},function(err,allFoundItems){
+                if(err)
+                {
+                    console.log("Some error while finding the items in items.js")
+                    req.flash("error","Following error encountered : " + err.message);
+                    res.redirect("back");
+                }
+                else{
+
+                    // eval(require("locus"));
+                    res.render("landing",{lostItems:JSON.stringify( allLostItems),foundItems:JSON.stringify(allFoundItems),GEOCODER_API_KEY_MAIN:process.env.GEOCODER_API__MAIN}); 
+                }
+            
+            });
+        }
+    });
 });
 
 router.get("/team",function(req,res)
@@ -187,6 +212,11 @@ router.post("/login",passport.authenticate('local',{
     successFlash: 'Welcome to FindMyStuffDTU!',
     failureRedirect:"/login"
 }));
+
+router.get("/login/callback",function(req,res)
+{
+    res.render("landing");
+});
 
 //signout
 router.get("/logout",function(req,res)
@@ -449,6 +479,17 @@ function checkUserOwnership(req,res,next)
     }
 
 }
+
+router.get("/lost",function(req,res)
+{
+    res.render("notfound/show.ejs");
+});
+
+
+router.get("*",function(req,res)
+{
+    res.render("notfound/show.ejs")
+});
 
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");

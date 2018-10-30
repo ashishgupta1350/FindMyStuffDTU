@@ -7,15 +7,23 @@ FoundItem   =require("../models/found.js")
 var middleware = require("../middleware/middleware.js");
 var NodeGeocoder = require('node-geocoder');
 var prompt = require('prompt');
+var nodemailer = require('nodemailer');
 
-// Image upload part of code
+
+
+// image upload code 
+
+var cloudinary      =require('cloudinary'),
+    cloudinaryStorage = require('multer-storage-cloudinary'),
+    multer          =require('multer')
+
+
 var multer = require('multer');
 var storage = multer.diskStorage({
   filename: function(req, file, callback) {
     callback(null, Date.now() + file.originalname);
   }
 });
-
 var imageFilter = function (req, file, cb) {
     // accept image files only
     if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
@@ -23,23 +31,26 @@ var imageFilter = function (req, file, cb) {
     }
     cb(null, true);
 };
+var upload = multer({ storage: storage, fileFilter: imageFilter});
 
-var upload = multer({ storage: storage, fileFilter: imageFilter})
 
-var cloudinary = require('cloudinary');
-cloudinary.config({ 
-  cloud_name: 'ashishgupta', 
-  api_key: process.env.CLOUDINARY_API_KEY, 
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
+cloudinary.config(
+    {
+        cloud_name: "ashishgupta",
+        api_key:process.env.CLOUDINARY_API_KEY,
+        api_secret:process.env.CLOUDINARY_API_SECRET
+    } 
+);
+ 
+// Image upload code requirements over
 
 var options = {
-  provider: 'google',
-  httpAdapter: 'https',
-  apiKey:process.env.GEOCODER_API_KEY_MAIN, // to update to env variables
-  formatter: null
-};
- 
+    provider: 'google',
+    httpAdapter: 'https',
+    apiKey:process.env.GEOCODER_API_KEY_MAIN, // to update to env variables
+    formatter: null
+  };
+  
 var geocoder = NodeGeocoder(options);
 
 router.get("/items",function(req,res)
@@ -104,6 +115,184 @@ router.get("/items",function(req,res)
     }
     
 });
+
+function nodemailerCode(mailFrom, mailTo, message,req,res)
+{
+    // console.log("step 2.1")
+    //     // create reusable transporter object using the default SMTP transport
+    //     var transporter = nodemailer.createTransport({
+    //         service: "Gmail",
+    //         auth: {
+    //             user: "ashishs.gu@gmail.com",
+    //             pass: "ashokgupta"
+    //         }
+    //     });
+    //     console.log("step 2.2")
+
+    //     // setup email data with unicode symbols
+    //     let mailOptions = {
+    //         from: 'innovatedtu@gmail.com', // sender address
+    //         to: 'ashishgupta1350@gmail.com, innovatedtu@gmail.com', // list of receivers
+    //         subject: 'Find My Stuff DTU: Someone found your item! ✔', // Subject line
+    //         text: 'A person with email xyz found your item. You can check the comments section.', // plain text body
+    //         html: '<a>https://google.co.in</a>' // html body
+    //     };
+    //     console.log("step 2.3")
+    
+
+    //     // send mail with defined transport object
+    //     transporter.sendMail(mailOptions, (error, info) => {
+    //         if (error) {
+    //             res.flash("error",error.message);
+    //             res.redirect("/items")
+    //         }
+    //         console.log('Message sent: %s', info.messageId);
+    //         // Preview only available when sending through an Ethereal account
+    //         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+    //         req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+    //         res.redirect("/items");
+    //         // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+    //         // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+    //     });
+
+    // var mail = require("nodemailer").mail;
+    // console.log(mail);
+
+    // mail({
+    //     from: "Fred Foo ✔ <ashishs.gu@gmail.com>", // sender address
+    //     to: "ashishgupta1350@gmail.com", // list of receivers
+    //     subject: "Hello ✔", // Subject line
+    //     text: "Hello world ✔", // plaintext body
+    //     html: "<b>Hello world ✔</b>" // html body
+    // });
+
+    // Generate SMTP service account from ethereal.email
+    nodemailer.createTestAccount((err, account) => {
+        if (err) {
+            console.error('Failed to create a testing account');
+            console.error(err);
+            return process.exit(1);
+        }
+
+        console.log('Credentials obtained, sending message...');
+
+        // NB! Store the account object values somewhere if you want
+        // to re-use the same account for future mail deliveries
+
+        // Create a SMTP transporter object
+        let transporter = nodemailer.createTransport(
+            {
+                host: account.smtp.host,
+                port: account.smtp.port,
+                secure: account.smtp.secure,
+                auth: {
+                    user: account.user,
+                    pass: account.pass
+                },
+                logger: false,
+                debug: false // include SMTP traffic in the logs
+            },
+            {
+                // default message fields
+
+                // sender info
+                from: 'ashishs.gu@gmail.com',
+                headers: {
+                    'X-Laziness-level': 1000 // just an example header, no need to use this
+                }
+            }
+        );
+
+        // Message object
+        let message = {
+            // Comma separated list of recipients
+            to: 'ashishgupta1350@gmail.com',
+
+            // Subject of the message
+            subject: 'Nodemailer is unicode friendly ✔',
+
+            // plaintext body
+            text: 'Hello to myself!',
+
+            // HTML body
+            html:
+                '<p><b>Hello</b> to myself <img src="cid:note@example.com"/></p>' +
+                '<p>Here\'s a nyan cat for you as an embedded attachment:<br/><img src="cid:nyan@example.com"/></p>',
+
+            // An array of attachments
+            attachments: [
+                // String attachment
+                {
+                    filename: 'notes.txt',
+                    content: 'Some notes about this e-mail',
+                    contentType: 'text/plain' // optional, would be detected from the filename
+                }
+
+                
+            ]
+        };
+
+        transporter.sendMail(message, (error, info) => {
+            if (error) {
+                console.log('Error occurred');
+                console.log(error.message);
+                res.redirect("/");
+                return process.exit(1);
+            }
+
+            console.log('Message sent successfully!');
+            console.log(nodemailer.getTestMessageUrl(info));
+            res.redirect("/");
+
+            // only needed when using pooled connections
+            transporter.close();
+        });
+    });
+}
+router.post("/items/:id/sendemail",function(req,res)
+{   
+    // var found = FoundItem.findById(req.params.id);
+
+    // eval(require("locus"))
+
+    LostItem.findById(req.params.id,function(err, foundLostItem){
+        if(err){
+            console.log(err);
+            res.redirect("/items");
+        }
+        else if(!foundLostItem)
+        {
+            // FoundItem.findById(req.params.id, function(err, foundFoundItem){
+            FoundItem.findById(req.params.id,function(err, foundFoundItem){
+            
+                if(err || !foundFoundItem){
+                    console.log(err);
+                    req.flash("error","No such item exists");
+                    res.redirect("/items");
+                } else {
+                    //render show template with that item
+                    // res.render("show", {item: foundFoundItem});
+                     console.log("step 1");
+
+                    return nodemailerCode('fdas','fad','fdasfdsa');
+                    // res.redirect("/");
+                }
+            });
+        } 
+        else {
+            // console.log(foundLostItem);
+            // res.render("show", {item: foundLostItem});
+            console.log("step 2");
+            return nodemailerCode('fdas','fad','fdasfdsa',req,res);
+            // res.redirect("/");
+
+        }
+    });
+
+    
+});
+
+
 router.post("/items",middleware.isLoggedIn,upload.single('image'),function(req,res)
 {
     // console.log(req.body);
@@ -135,12 +324,17 @@ router.post("/items",middleware.isLoggedIn,upload.single('image'),function(req,r
             lng = data[0].longitude;
             location = data[0].formattedAddress;
             var itemObject={item:item,details:details,specifications:specifications, date:date ,time:time,author:author,location:location,lat:lat,lng:lng};
-            // cloudinary.uploader.upload(req.file.path, function(result) {
-            //     var itemObject_cloudinary={item:item,details:details,specifications:specifications, date:date ,time:time,author:author,location:location,lat:lat,lng:lng};
-            //     itemObject=itemObject_cloudinary;
-            // });
-        // eval(require("locus"));
-
+            cloudinary.uploader.upload(req.file.path, function(result) {
+                // add cloudinary url for the image to the campground object under image property
+                image_url=result.secure_url;
+                // add author to campground
+                itemObject={item:item,details:details,specifications:specifications, date:date ,time:time,author:author,location:location,lat:lat,lng:lng,image:image_url};
+                  
+                
+              });
+            // eval(require("locus"));
+            eval(require("locus"));
+            console.log(itemObject)
         if(req.body.isLost=="lost"){
         
             LostItem.create(itemObject,function(err,newlyCreated)
@@ -292,8 +486,6 @@ router.delete("/items/:id",middleware.checkItemOwnership,function(req,res)
    var found = FoundItem.findById(req.params.id);
    if(found){
             
-    
-
             FoundItem.findByIdAndRemove(req.params.id,function(err){
                 if(err)
                 {

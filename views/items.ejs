@@ -57,9 +57,13 @@
                                 <td class="dynamicWidth"><form action="/items/<%= item._id %>?_method=DELETE" id="delete" method="POST">
                                     <button>I've found it</button>
                                     </form>
+                                    <form action="/items/<%= item._id %>/sendemail" id="sendEmail" method="POST">
+                                        <button>Click Me</button>
+                                    </form>
+
                                 </td>
                                 
-                                <td class="dynamicWidth"><a target="_blank" href="http://www.gstatic.com/webp/gallery/1.jpg"><i class="fas fa-camera"></i></a></td>
+                                <td class="dynamicWidth"><a target="_blank"  href=<%=item.image%>><i class="fas fa-camera"></i></a></td>
                                 <td class="dynamicWidth"><form action="/items/<%= item._id %>" method="GET">
                                     <button>Show Details</button>
                                 </form>
@@ -96,7 +100,8 @@
                                     <button>It's Mine</button>
                                     </form>
                                 </td>
-                                <td class="dynamicWidth"><a target="_blank" href="http://www.gstatic.com/webp/gallery/1.jpg" id="proceed"><i class="fas fa-camera"></i></a></td>
+
+                                <td class="dynamicWidth"><a target="_blank" href=<%=item.image%> id="proceed"><i class="fas fa-camera"></i></a></td>
 
                                 <td class="dynamicWidth"><form class="itemDetailsButton" action="/items/<%=item._id%>"  method="GET">
                                     <button>Show Details</button>
@@ -131,8 +136,10 @@
                 $(".table-item-found").fadeIn(100);
             });    
             
-
+        // node mailer
+        
         }
+        
     </script>
         
     <footer class="page-footer font-small dark footer">

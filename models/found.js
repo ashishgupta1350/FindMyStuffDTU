@@ -6,6 +6,11 @@ var foundItemsSchema=new mongoose.Schema({
     specifications:String,
     date:String,
     time:String,
+    image:
+    {
+        type:String,
+        default:"https://res.cloudinary.com/ashishgupta/image/upload/c_scale,w_517/v1540897040/Vow_Renewal_Ceremony.png"
+    },
     location: String,
     lat: Number,
     lng: Number,

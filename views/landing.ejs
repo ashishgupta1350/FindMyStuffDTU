@@ -1,32 +1,95 @@
-<% include partials/header %>
-    <!--The div element for the map -->
-    <div id="map"></div>
 
-    <div class="index-buttons">
+ <% include partials/header %>
+ <!--The div element for the map -->
+ <!-- <div id="map"></div> -->
+ <!-- <div class="g-map"> -->
+     <div id="map"></div>
+     
+     <div class="index-buttons">
         <div class="container container-buttons">
             <a href="/items/new"><button class="btn btn-danger">I have lost something!</button></a>
             <a href="/items/new"><button class="btn btn-success">I have found something!</button></a>
         </div>
-    </div>
+    </div> 
+     <script src=<%="https://maps.googleapis.com/maps/api/js?key=".concat(process.env.GEOCODER_API_KEY_MAIN).concat('&callback=initMap')%> type="text/javascript"></script>
 
-    <script>
-        // Initialize and add the map
-        function initMap() {
-        // The location of DTU
-        var dtu = {lat: 28.7500749, lng: 77.1176652};
-        // The map, centered at DTU
-        var map = new google.maps.Map(
-            document.getElementById('map'), {zoom: 17, center: dtu});
-        // The marker, positioned at DTU
-        var marker = new google.maps.Marker({position: dtu, map: map});
-        }
-    </script>
-  
-    <%
-        src="https://maps.googleapis.com/maps/api/js?key=".concat(process.env.GEOCODER_API_KEY_MAIN).concat('&callback=initMap');
-        console.log(src);
-    %>
-    <script async defer src=<%="https://maps.googleapis.com/maps/api/js?key=".concat(process.env.GEOCODER_API_KEY_MAIN).concat('&callback=initMap')%>
-    </script>
- <% include partials/footer %>
+    
 
+     <script async defer type="text/javascript">
+         var locations=[];
+         var locations_found=[];
+         index=0;
+         console.log("here");
+         
+         let lostItems= <%-lostItems%>
+         let foundItems= <%-foundItems%>
+         // eval(require("locus")); 
+         lostItems.slice(-10,-1).forEach(function(item){
+             var item_array=[];
+             item_array.push('<strong>'+item.item+'(lost)'+'</strong>'+ '<p> Details: '+item.details+'</p>'+'<p> Date: '+item.date+'</p>'+'<p> Location: '+item.location+'</p>');
+             item_array.push(item.lat + (index%10)/30000);
+             item_array.push(item.lng + (index%10)/30000);
+             item_array.push(index);
+             index=index+1;
+             locations.push(item_array);
+         });
+         foundItems.slice(-10,-1).forEach(function(item){
+             var item_array=[];
+             item_array.push('<strong>'+item.item+'(found)'+'</strong>'+ '<p> Details: '+item.details+'</p>'+'<p> Date: '+item.date+'</p>'+'<p> Location: '+item.location+'</p>');
+             item_array.push(item.lat+(index%10)/30000);
+             item_array.push(item.lng+(index%10)/30000);
+             item_array.push(index);
+             index=index+1;
+             locations_found.push(item_array);
+         });
+     // var locations = [
+         
+     //     ['<strong>Wind Point </strong>', 28.7500749, 77.1176652, 30],
+     // ];
+     var image = 'https://i1.sdlcdn.com/img/marketing-mailers/mailer/2016/001cr/meganl/un/location-pointer.png';
+     var image_found = 'https://res.cloudinary.com/ashishgupta/image/upload/c_scale,w_14/v1540744218/google-pin-png.png'
+     var map = new google.maps.Map(document.getElementById('map'), {
+         zoom: 17,
+         center: new google.maps.LatLng( 28.7500749, 77.1176652),
+         mapTypeId: google.maps.MapTypeId.ROADMAP,
+     });
+     
+     var infowindow = new google.maps.InfoWindow();
+     
+     var marker, i;
+     
+     for (i = 0; i < locations.length; i++) {
+             marker = new google.maps.Marker({
+                 position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                 animation: google.maps.Animation.DROP,
+                 map: map,
+                 icon: image
+         });
+         
+     
+         google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+             return function() {
+                 infowindow.setContent(locations[i][0]);
+                 infowindow.open(map, marker);
+             }
+         })(marker, i));
+     }
+
+     for (i = 0; i < locations_found.length; i++) {
+             marker = new google.maps.Marker({
+                 position: new google.maps.LatLng(locations_found[i][1], locations_found[i][2]),
+                 animation: google.maps.Animation.DROP,
+                 map: map,
+                 icon: image_found
+         });        
+         google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+             return function() {
+                 infowindow.setContent(locations_found[i][0]);
+                 infowindow.open(map, marker);
+                 
+             }
+         })(marker, i));
+     }
+     </script>
+    
+<% include partials/footer %>
