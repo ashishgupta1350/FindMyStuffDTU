@@ -24,7 +24,7 @@
          let lostItems= <%-lostItems%>
          let foundItems= <%-foundItems%>
          // eval(require("locus")); 
-         lostItems.slice(-10,-1).forEach(function(item){
+         lostItems.slice().forEach(function(item){
              var item_array=[];
              item_array.push('<strong>'+item.item+'(lost)'+'</strong>'+ '<p> Details: '+item.details+'</p>'+'<p> Date: '+item.date+'</p>'+'<p> Location: '+item.location+'</p>');
              item_array.push(item.lat + (index%10)/30000);
@@ -33,7 +33,7 @@
              index=index+1;
              locations.push(item_array);
          });
-         foundItems.slice(-10,-1).forEach(function(item){
+         foundItems.slice().forEach(function(item){
              var item_array=[];
              item_array.push('<strong>'+item.item+'(found)'+'</strong>'+ '<p> Details: '+item.details+'</p>'+'<p> Date: '+item.date+'</p>'+'<p> Location: '+item.location+'</p>');
              item_array.push(item.lat+(index%10)/30000);

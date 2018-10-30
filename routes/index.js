@@ -208,7 +208,7 @@ router.post("/login",passport.authenticate('local',{
     successRedirect:'/items',
     failureRedirect: "/login",
     failureFlash: true,
-    failureFlash: "No such account exists!",
+    failureFlash: "The username and password do not match!",
     successFlash: 'Welcome to FindMyStuffDTU!',
     failureRedirect:"/login"
 }));

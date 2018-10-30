@@ -6,7 +6,7 @@ var UserSchema=new mongoose.Schema({
     username:String,
     password:String,
     isAdmin:{type:Boolean,default:false},
-    avatar:{type:String,default:"https://i.pinimg.com/236x/a7/e8/fb/a7e8fbe6ccae9e568d6324f3323ee840--minions--minions-despicable-me.jpg"},
+    avatar:{type:String,default:"https://res.cloudinary.com/ashishgupta/image/upload/c_scale,w_390/v1540725686/minionPic.png"},
     firstName:String,
     lastName:String,
     email:{type:String,unique:true,required:true},
