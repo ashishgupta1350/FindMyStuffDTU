@@ -213,6 +213,11 @@ router.post("/login",passport.authenticate('local',{
     failureRedirect:"/login"
 }));
 
+router.get("/login/callback",function(req,res)
+{
+    res.render("landing");
+});
+
 //signout
 router.get("/logout",function(req,res)
 {
@@ -474,6 +479,17 @@ function checkUserOwnership(req,res,next)
     }
 
 }
+
+router.get("/lost",function(req,res)
+{
+    res.render("notfound/show.ejs");
+});
+
+
+router.get("*",function(req,res)
+{
+    res.render("notfound/show.ejs")
+});
 
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");

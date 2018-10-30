@@ -11,14 +11,72 @@ var express         =require("express"),
     everyauth       =require("everyauth"),
     middleware      =require("./middleware/middleware.js"),
     Comment         =require("./models/comment"),
-    GoogleStrategy  =require('passport-google-oauth').OAuth2Strategy,
+    // GoogleStrategy  =require('passport-google-oauth').OAuth2Strategy,
     findOrCreate    =require("mongoose-findorcreate"),
     moment          =require("moment"),
     bodyParser      =require("body-parser"),
-    flash           =require("connect-flash")
+    flash           =require("connect-flash"),
+    cloudinary      =require('cloudinary'),
+    cloudinaryStorage = require('multer-storage-cloudinary'),
+    multer          =require('multer'),
+    GoogleStrategy = require('passport-google-oauth20').Strategy
 
-    
 var app=express();
+
+
+cloudinary.config(
+{
+    cloud_name: "ashishgupta",
+    api_key: "788167666823636",
+    api_secret: "EoHSoZV19vyD33DqJAFezC9rx1Y",
+
+});
+
+var storage = cloudinaryStorage({
+    cloudinary: cloudinary,
+    folder: 'testing',
+    allowedFormats: ['jpg','png'],
+    filename: function(req, file, cb) {
+        cb(undefined, 'file');
+    }
+});
+
+
+
+// google
+
+
+// passport.use(new GoogleStrategy({
+//     clientID: GOOGLE_CLIENT_ID,
+//     clientSecret: GOOGLE_CLIENT_SECRET,
+//     callbackURL: "http://www.example.com/auth/google/callback"
+//   },
+//   function(accessToken, refreshToken, profile, cb) {
+//     User.findOrCreate({ googleId: profile.id }, function (err, user) {
+//       return cb(err, user);
+//     });
+//   }
+// ));
+
+
+// pusher
+
+//  single headed notifications
+
+// notifications on phone
+
+//  https://pusher.com/tutorials/realtime-likes-nodejs/
+
+
+
+
+
+// add to items.js -- name should be images 
+var parser = multer({ storage: storage});
+app.post('/upload',parser.array('images', 1), function(req, res){
+    console.log(req.files);
+    res.status(201).send(req.files[0].secure_url);
+})
 app.use(methodOverride("_method"));
 app.use(flash());
 
@@ -62,6 +120,7 @@ app.use(function(req,res,next)
 app.use(itemsRoute);
 app.use(indexRoute);
 app.use(commentRoute);
+
 
 app.listen(3000,function()
 {
