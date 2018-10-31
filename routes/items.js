@@ -382,6 +382,7 @@ router.post("/items",middleware.isLoggedIn,upload.single('image'),function(req,r
         var lat;
         var lng;
         var location;
+        var imageLink=req.body.imageLink;
 
         location=req.body.location;
         geocoder.geocode(req.body.location, function (err, data) {
@@ -395,15 +396,16 @@ router.post("/items",middleware.isLoggedIn,upload.single('image'),function(req,r
             lat = data[0].latitude;
             lng = data[0].longitude;
             location = data[0].formattedAddress;
-            var itemObject={item:item,details:details,specifications:specifications, date:date ,time:time,author:author,location:location,lat:lat,lng:lng};
-            cloudinary.uploader.upload(req.file.path, function(result) {
-                // add cloudinary url for the image to the campground object under image property
-                var image_url=result.secure_url;
-                // add author to campground
-                itemObject={item:item,details:details,specifications:specifications, date:date ,time:time,author:author,location:location,lat:lat,lng:lng,image:image_url};
+            var itemObject={item:item,details:details,specifications:specifications, date:date ,time:time,author:author,location:location,lat:lat,lng:lng,image:imageLink};
+            // cloudinary.uploader.upload(req.file.path, function(result) {
+            //     // add cloudinary url for the image to the campground object under image property
+            //     var image_url=result.secure_url;
+            //     // add author to campground
+            //     itemObject={item:item,details:details,specifications:specifications, date:date ,time:time,author:author,location:location,lat:lat,lng:lng,image:image_url};
                   
                 
-              });
+            //   });
+            
             // eval(require("locus"));
             // eval(require("locus"));
             console.log(itemObject);
