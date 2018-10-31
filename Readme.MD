@@ -1,20 +1,18 @@
 Work to do:
 
+1) Mordify map blips to pin / unpin items popup on google maps "/" route in items.js (The view is landing.ejs)
 
-4) Make the button toggle one or the other. 
+2) Add a one to one chat application for each user, where each user can connect indivisually to other user via chat ( Is it needed? I don't think so since I included comments? Chat though would be cool.
 
-Add java script to load tables(as in semantic UI), forms and images.
+3) Image upload via cloudinary is not working, need to fix that. It is working on the local host, but not on heroku, has to have a reason.
 
-5) Make a form for found an item! Image is necessary ?? Not really
+4) Need to build a system to send message( push notification to phone and email ) when someone find the item. What I am thinking is to add a button to each item ( In the view details page). When ever that button is clicked, the email and phone number of person goes to the owner of lost item via email (gmail only). Then extending this service to phones ( push  notifications )
 
-6) Create and link routes to the page.
+5) Add a Google Login and authentication system. So far I have failed miserably.
 
-7)  have mongo db as the database, configure database, link tables to the data base
+6) Update the edit item ( appears when admin signs or the current user is the owner of the post) to include an update image button via cloudinary api. ( Needs some work )
 
-8) install body-parser, link forms to actual list items(lost -> lost list and found -> found list), add security to forms to disable scripting. All routes must be RESTful. (Major work)
-
-9) Install other dependencies including ejs (npm install ejs) express-sanitizer (for script avoidance) 
-
+7) Include a page for the top item loosers ( a ranking system, just for fun so that user use this website more in the initial stages), Also add in the same page, top people who found the most items) ( This is a little impractical considering one looses item rarely) [Aviral suggested this tho]
 
 ## Above work is done, comments and user models with session has been added. Google auth is left
 
