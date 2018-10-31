@@ -16,6 +16,11 @@
             <p><strong>Firstname:</strong> <%=user.firstName%></p>
             <p><strong>Lastname:</strong> <%=user.lastName%></p>
             <p><strong>Email:</strong> <a href="mailto:<%=user.email%>" target="_black"> <%=user.email%> </a></p>
+            <%if( user.phoneNumber!=''){%>
+                <p><strong>Phone Number:</strong> <%=user.phoneNumber%></p>
+            <%} else {%>
+                <p><strong>Phone Number: </strong> Not given</p>
+            <%}%>
             <%if(currentUser && (user._id.equals(currentUser._id)|| currentUser.isAdmin)){%>
             <form class="text-center" action="/users/<%=user._id%>/edit" mathod="GET">
                 <button class="btn btn-warning" >Edit</button>

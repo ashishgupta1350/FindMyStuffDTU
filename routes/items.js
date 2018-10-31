@@ -544,7 +544,12 @@ router.put("/items/:id",middleware.isLoggedIn,function(req,res)
         } else {
             FoundItem.findByIdAndUpdate(req.params.id, req.body.item, function(err, item){
                 if(err||!item){
+                    if(err){
                     req.flash("error","Following error encountered : " + err.message);  
+                    }
+                    else{
+                        req.flash("error","The item was not a found item earlier. Delete this item by clicking I have found it and create a new one!")
+                    }
                     res.redirect("back");
                 } else {
                     req.flash("success","Successfully Updated!");

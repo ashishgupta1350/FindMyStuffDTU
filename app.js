@@ -18,8 +18,7 @@ var express         =require("express"),
     flash           =require("connect-flash"),
     cloudinary      =require('cloudinary'),
     cloudinaryStorage = require('multer-storage-cloudinary'),
-    multer          =require('multer'),
-    GoogleStrategy = require('passport-google-oauth20').Strategy
+    multer          =require('multer')
 
 var app=express();
 
