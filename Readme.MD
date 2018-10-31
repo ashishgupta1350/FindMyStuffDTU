@@ -14,7 +14,8 @@ Work to do:
 
 7) Include a page for the top item loosers ( a ranking system, just for fun so that user use this website more in the initial stages), Also add in the same page, top people who found the most items) ( This is a little impractical considering one looses item rarely) [Aviral suggested this tho]
 
-## Above work is done, comments and user models with session has been added. Google auth is left
+
+## For poplularizing the idea before authorities, we need count of number of users coming to website and how much traffic per day is coming. These stats are necessary to get idea accepted, funding etc. This code has to be close sourced since API and Gmail Passwords are vulnerable. (Not because no other gets credit)
 
 <br>
 
