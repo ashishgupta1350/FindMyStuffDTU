@@ -19,7 +19,7 @@
 
 <br>
 
-### Linking accounts in email too !! next thing tomorrow
+### Linking comments to emails and user profile too !! next thing tomorrow
 
 #### Main Page with blue and red blips:
 ![screenshot from 2018-11-01 00-42-40](https://user-images.githubusercontent.com/24922775/47813728-e6eaf180-dd71-11e8-855e-00bb5bb6f2aa.png)
