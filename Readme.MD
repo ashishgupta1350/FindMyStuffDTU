@@ -18,39 +18,40 @@ Work to do:
 ## For poplularizing the idea before authorities, we need count of number of users coming to website and how much traffic per day is coming. These stats are necessary to get idea accepted, funding etc. This code has to be close sourced since API and Gmail Passwords are vulnerable. (Not because no other gets credit)
 
 <br>
+Linking accounts in email too !! next thing tomorrow
 
-Home page: Map blips and location item was lost is to be coded and recent 15 items are left to be shown on the map.
+Main Page with blue and red blips:
+![screenshot from 2018-11-01 00-42-40](https://user-images.githubusercontent.com/24922775/47813728-e6eaf180-dd71-11e8-855e-00bb5bb6f2aa.png)
 
-![home page](https://user-images.githubusercontent.com/24922775/45094628-780a6700-b139-11e8-8a4c-7af03c52d37b.png)
+Items page for displaying currently lost or found items:
+![screenshot from 2018-11-01 00-42-51](https://user-images.githubusercontent.com/24922775/47813729-e7838800-dd71-11e8-8a01-72b94f7783ca.png)
 
-Styling of Items menu is left, Moments.js is to be added to show time when post was put up
+Detailed item description page where comments can be added:
+![screenshot from 2018-11-01 00-43-17](https://user-images.githubusercontent.com/24922775/47813731-e7838800-dd71-11e8-9be5-c877e2c63d28.png)
 
-![Items Menu](https://user-images.githubusercontent.com/24922775/45094629-78a2fd80-b139-11e8-98a3-b08114d5b68d.png)
+Google maps blip helps locate items and comments help people connect to each other.
+![screenshot from 2018-11-01 00-43-24](https://user-images.githubusercontent.com/24922775/47813732-e7838800-dd71-11e8-8008-c3b5ea8a900f.png)
 
-Styling Login Page is left.
+DTU Security page, items can only be added by DTU Security!
+![screenshot from 2018-11-01 00-43-35](https://user-images.githubusercontent.com/24922775/47813736-e81c1e80-dd71-11e8-826f-584cbabc69c0.png)
 
-![Login Page](https://user-images.githubusercontent.com/24922775/45094631-78a2fd80-b139-11e8-972b-4b99dc807cd9.png)
+Profile page, each person has a unique profile!
+![screenshot from 2018-11-01 00-43-56](https://user-images.githubusercontent.com/24922775/47813739-e81c1e80-dd71-11e8-83cc-0ce9ff6c41b6.png)
 
-Image Uploading is left here. How do I upload image. Referencing through URL is not a good solution.
+Login page for users
+![screenshot from 2018-11-01 00-44-10](https://user-images.githubusercontent.com/24922775/47813742-e8b4b500-dd71-11e8-8372-502fadbfc4d2.png)
 
-![New Lost/found Items page](https://user-images.githubusercontent.com/24922775/45094632-78a2fd80-b139-11e8-8871-1249d732e933.png)
+Register page for pre - existing users
+![screenshot from 2018-11-01 00-44-33](https://user-images.githubusercontent.com/24922775/47813744-e8b4b500-dd71-11e8-92c7-62c891a72625.png)
 
-No Change here, this is just me adding some item and it displaying on the lists.
+About Page
+![screenshot from 2018-11-01 00-44-44](https://user-images.githubusercontent.com/24922775/47813746-e94d4b80-dd71-11e8-90f2-babc64e99380.png)
 
-![screenshot from 2018-09-05 18-23-39](https://user-images.githubusercontent.com/24922775/45094635-793b9400-b139-11e8-8aef-c45053714088.png)
+New Item page
+![screenshot from 2018-11-01 00-45-23](https://user-images.githubusercontent.com/24922775/47813747-e94d4b80-dd71-11e8-8cdc-6c491ef02140.png)
 
-New and Edit Comments Section is OK.
+Edit new item page
+![screenshot from 2018-11-01 00-45-50](https://user-images.githubusercontent.com/24922775/47813750-e9e5e200-dd71-11e8-8887-0ae257629af6.png)
 
-![screenshot from 2018-09-05 18-23-54](https://user-images.githubusercontent.com/24922775/45094636-79d42a80-b139-11e8-899c-a4aa1ac43edc.png)
-
-That 3 days ago is static, It needs to be updated! Also Navigation 1,2,3 are static, need to add some there. Image styling is left (border:0, center etc), styling of page is also incomplete.
-
-![show ejs page](https://user-images.githubusercontent.com/24922775/45094638-79d42a80-b139-11e8-80ed-c0b9fc109a2f.png)
-
-This is OK
-
-![Edit comments](https://user-images.githubusercontent.com/24922775/45094640-79d42a80-b139-11e8-97ba-0b6ac048d3c9.png)
-
-Google sign up is  left right now
-
-![screenshot from 2018-09-05 18-24-33](https://user-images.githubusercontent.com/24922775/45094641-7a6cc100-b139-11e8-9fc0-b68ae136d3f0.png)
+Edit profile page
+![screenshot from 2018-11-01 00-46-10](https://user-images.githubusercontent.com/24922775/47813751-e9e5e200-dd71-11e8-80dd-6bbaaade71a6.png)
