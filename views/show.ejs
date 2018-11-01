@@ -61,7 +61,8 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             
-                            <strong><%=comment.author.username %></strong>
+                            
+                            <a href="/users/<%=comment.author.id%>"><strong><%=comment.author.username %></strong></a>
                             <span class="pull-right">
                                 <%=moment(comment.date).fromNow();%>
                             </span>
