@@ -487,10 +487,6 @@ router.get("/lost",function(req,res)
 });
 
 
-router.get("*",function(req,res)
-{
-    res.render("notfound/show.ejs")
-});
 
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");

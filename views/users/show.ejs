@@ -34,6 +34,7 @@
                     <th>Specifications</th>
                     <th>Date</th>
                     <th>Location</th>
+                    <th>Details of Item</th>
                 </thead>
                 <tbody>
                     
@@ -43,6 +44,11 @@
                         <td><%=lostItem.specifications%></td>
                         <td><%=lostItem.date%></td>
                         <td><%=lostItem.location%></td>
+                        <td class="dynamicWidth"><form class="itemDetailsButton" action="/items/<%=lostItem._id%>"  method="GET">
+                            <button>Details</button>
+                            </form>
+                        </td>
+                                
                         </tr>
                     <%})%>
                 </tbody>
@@ -55,6 +61,7 @@
                     <th>Specifications</th>
                     <th>Date</th>
                     <th>Location</th>
+                    <th>Details of Item</th>
                 </thead>
                 <tbody>
 
@@ -64,6 +71,10 @@
                         <td><%=foundItem.specifications%></td>
                         <td><%=foundItem.date%></td>
                         <td><%=foundItem.location%></td>
+                        <td class="dynamicWidth"><form class="itemDetailsButton" action="/items/<%=foundItem._id%>"  method="GET">
+                            <button>Details</button>
+                            </form>
+                        </td>
                     </tr>
                     <%})%>
                 </tbody>

@@ -121,6 +121,10 @@ app.use(function(req,res,next)
 app.use(itemsRoute);
 app.use(indexRoute);
 app.use(commentRoute);
+app.get("*",function(req,res)
+{
+    res.render("notfound/show.ejs")
+});
 
 // <<<<<<< HEAD
 app.listen(process.env.PORT,process.env.IP)
