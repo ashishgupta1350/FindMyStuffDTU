@@ -16,4 +16,5 @@ function toggleTable()
 
 }
 
-console.log("something is better than nothing")
+// console.log("something is better than nothing")
+
