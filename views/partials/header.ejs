@@ -17,7 +17,7 @@
           gtag('config', 'UA-128496860-1');
         </script>
 
-
+    <link rel="shortcut icon" href="https://i.imgur.com/bInWEhO.jpg" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet"> 
@@ -55,11 +55,11 @@
                             
                             <% if (!currentUser) {%>
                                 <li><a href="/login"> <i class="fas fa-sign-in-alt"></i> Login</a></li>
-                                <li><a href="/register"> <i class="far fa-registered"></i>Register</a></li>
+                                <li><a href="/register"> <i class="far fa-registered"></i> Register</a></li>
                                 <!-- <li><a href="/auth/google" id="disabledSelect" disabled> Sign In with <i class="fab fa-google"></i></a></li> -->
                             <% } else {%>
                                 <li> <a href="/users/<%=currentUser._id%>"><strong>Signed in as: <%=currentUser.username%></strong></a></li>
-                                <li><a href="/logout"> <i class="fas fa-sign-out-alt"></i> logout</a></li>
+                                <li><a href="/logout"> <i class="fas fa-sign-out-alt"></i> Logout</a></li>
                             <%}%>
                             <li><a href="/about"> <i class="fas fa-cogs"></i> About</a></li>
 

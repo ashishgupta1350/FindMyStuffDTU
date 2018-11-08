@@ -1,14 +1,42 @@
 
 <% include partials/header%>
+
+
+<style>
+    /*FAQS*/
+.faq_question {
+    margin: 0px;
+    padding: 0px 0px 5px 0px;
+    display: inline-block;
+    cursor: pointer;
+    font-weight: bold;
+}
+ 
+.faq_answer_container {
+    height: 0px;
+    overflow: hidden;
+    padding: 0px;
+}
+@media only screen and (max-width: 600px) {
+    .do-not-display{
+        display:none;
+    
+    }
+}
+
+
+
+</style>
+
 <div class = "container">
     <div class="row">
         <div class="col-sm-3 col-md-3">
-            <p class="lead">Find My Stuff DTU</p>
+            <!--<p class="lead">Find My Stuff DTU</p>-->
             <div class="list-group">
                 <a href="/users/<%=item.author.id%>"><li class="list-group-item active" >See <%=item.author.username%>'s Profile </li></a>
-                <li class="list-group-item">DTU Admin Link (Will be activated)</li>
-                <li class="list-group-item">Contact Details (In Progress)</li>
-                <li class="list-group-item"><div id="map_show" style="width:100%; height:300px; overflow: none;"></div></li>
+                <li class="list-group-item do-not-display">DTU Admin Link (Will be activated)</li>
+                <li class="list-group-item do-not-display">Contact Details (In Progress)</li>
+                <li class="list-group-item"><p>Location of this item:</p><div id="map_show" style="width:100%; height:300px; overflow: none;"></div></li>
             </div>
             
         </div>
@@ -37,16 +65,33 @@
                         
                         %>
                         <p><strong>Please note: </strong>The item is currently at DTU Gate, with DTU Security!</p>
-                    <%}else{%>
-                        
-                        <p>Hey! We are in a special tie up with DTU security!</p>
-                        
                     <%}%>
+                        
+                        
+                    <p></p>
+                    <hr/>
                     <p>
                         <strong> This might be useful:</strong>
                     </p>
-                    <p>1) If you have <strong>found</strong> the item, Give the item to DTU security at gate, It will be safely delivered!. If someone comments that it is theirs, then give the expensive items only after demanding the id proof. </p>
-                    <p>2) If you have <strong>lost</strong> the item, check the items found by DTU secuity(see tab above). In case your item comes at DTU security, the item will be updated there. In case someone else finds your item, then they will comment here, you can contact them via comments for now. We are working on a system for 1 to 1 communication, it will be out in no time! </p>
+                    
+                    <div class="faq_container">
+                       <div class="faq">
+                          <div class="faq_question">A) <a>If you have <strong> Found </strong> an item </a></div>
+                               <div class="faq_answer_container">
+                                  <div class="faq_answer">Give the item to DTU security at gate, It will be safely delivered!. If someone comments that it is theirs, then give the expensive items only after demanding the id proof. </div>
+                               </div>        
+                        </div>
+                     </div>
+                     <div class="faq_container">
+                       <div class="faq">
+                          <div class="faq_question">B) <a>If you have <strong> Lost </strong> an item </a></div>
+                               <div class="faq_answer_container">
+                                  <div class="faq_answer"> Check the items found by DTU secuity(<a href="/dtusecurity">Click Here</a>). In case your item comes at DTU security, the item will be updated there. In case someone else finds your item, then they will comment here, you can contact them via comments for now. </div>
+                               </div>        
+                        </div>
+                     </div>
+                    <!--<p>1) If you have <strong>found</strong> the item, Give the item to DTU security at gate, It will be safely delivered!. If someone comments that it is theirs, then give the expensive items only after demanding the id proof. </p>-->
+                    <!--<p>2) If you have <strong>lost</strong> the item, check the items found by DTU secuity(see tab above). In case your item comes at DTU security, the item will be updated there. In case someone else finds your item, then they will comment here, you can contact them via comments for now. We are working on a system for 1 to 1 communication, it will be out in no time! </p>-->
                 
                 </div>  
                     
@@ -90,6 +135,34 @@
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<script>
+ $(document).ready(function() {
+ 
+    $('.faq_question').click(function() {
+ 
+        if ($(this).parent().is('.open')){
+            $(this).closest('.faq').find('.faq_answer_container').animate({'height':'0'},500);
+            $(this).closest('.faq').removeClass('open');
+ 
+            }else{
+                var newHeight =$(this).closest('.faq').find('.faq_answer').height() +'px';
+                $(this).closest('.faq').find('.faq_answer_container').animate({'height':newHeight},500);
+                $(this).closest('.faq').addClass('open');
+            }
+ 
+    });
+ 
+});
+</script>
+
+
+
+
+
 <script>
     function initMap() {
       var lat =  <%=item.lat%>;
