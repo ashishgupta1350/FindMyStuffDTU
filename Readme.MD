@@ -1,25 +1,14 @@
-## Work to do:
+# Find My Stuff DTU
+### You don't have to suffer the loss of lost items anymore!
 
-1) Mordify map blips to pin / unpin items popup on google maps "/" route in items.js (The view is landing.ejs)
-
-2) Add a one to one chat application for each user, where each user can connect indivisually to other user via chat ( Is it needed? I don't think so since I included comments? Chat though would be cool.
-
-3) Image upload via cloudinary is not working, need to fix that. It is working on the local host, but not on heroku, has to have a reason.
-
-4) Need to build a system to send message( push notification to phone and email ) when someone find the item. What I am thinking is to add a button to each item ( In the view details page). When ever that button is clicked, the email and phone number of person goes to the owner of lost item via email (gmail only). Then extending this service to phones ( push  notifications )
-
-5) Add a Google Login and authentication system. So far I have failed miserably.
-
-6) Update the edit item ( appears when admin signs or the current user is the owner of the post) to include an update image button via cloudinary api. ( Needs some work )
-
-7) Include a page for the top item loosers ( a ranking system, just for fun so that user use this website more in the initial stages), Also add in the same page, top people who found the most items) ( This is a little impractical considering one looses item rarely) [Aviral suggested this tho]
+### UML diagram:
+![Blank Diagram](https://user-images.githubusercontent.com/24922775/56229656-095e9600-6098-11e9-9e6b-bc905085719b.png)
 
 
-## For poplularizing the idea before authorities, we need count of number of users coming to website and how much traffic per day is coming. These stats are necessary to get idea accepted, funding etc. This code has to be close sourced since API and Gmail Passwords are vulnerable. (Not because no other gets credit)
+#### Contributions are highly appreciated!
 
-<br>
 
-### Linking comments to emails and user profile too !! next thing tomorrow
+# Screenshots:
 
 #### Main Page with blue and red blips:
 ![screenshot from 2018-11-01 00-42-40](https://user-images.githubusercontent.com/24922775/47813728-e6eaf180-dd71-11e8-855e-00bb5bb6f2aa.png)
@@ -56,3 +45,28 @@
 
 #### Edit profile page
 ![screenshot from 2018-11-01 00-46-10](https://user-images.githubusercontent.com/24922775/47813751-e9e5e200-dd71-11e8-80dd-6bbaaade71a6.png)
+
+
+
+## Work to do:
+
+1) Mordify map blips to pin / unpin items popup on google maps "/" route in items.js (The view is landing.ejs)
+
+2) Add a one to one chat application for each user, where each user can connect indivisually to other user via chat ( Is it needed? I don't think so since I included comments? Chat though would be cool.
+
+3) Image upload via cloudinary is not working, need to fix that. It is working on the local host, but not on heroku, has to have a reason.
+
+4) Need to build a system to send message( push notification to phone and email ) when someone find the item. What I am thinking is to add a button to each item ( In the view details page). When ever that button is clicked, the email and phone number of person goes to the owner of lost item via email (gmail only). Then extending this service to phones ( push  notifications )
+
+5) Add a Google Login and authentication system. So far I have failed miserably.
+
+6) Update the edit item ( appears when admin signs or the current user is the owner of the post) to include an update image button via cloudinary api. ( Needs some work )
+
+7) Include a page for the top item loosers ( a ranking system, just for fun so that user use this website more in the initial stages), Also add in the same page, top people who found the most items) ( This is a little impractical considering one looses item rarely) [Aviral suggested this tho]
+
+
+## For poplularizing the idea before authorities, we need count of number of users coming to website and how much traffic per day is coming. These stats are necessary to get idea accepted, funding etc. This code has to be close sourced since API and Gmail Passwords are vulnerable. (Not because no other gets credit)
+
+<br>
+
+### Linking comments to emails and user profile too !! next thing tomorrow
